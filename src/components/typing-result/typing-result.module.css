@@ -1,0 +1,32 @@
+.result{
+    padding: 20px
+}
+.heading{
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.image{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px
+}
+.result-text{
+    font-size: 22px;
+    font-weight: 300;
+    text-align: justify;
+}
+.result-text mark{
+    background-color: #ffd000;
+    padding: 5px;
+}
+.button{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+.button button{
+    font-size: 20px;
+    padding: 25px 30px;
+}
