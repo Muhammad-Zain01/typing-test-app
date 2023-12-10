@@ -1,6 +1,8 @@
 import classes from './page.module.css'
 import Typing from '@/components/typing/typing'
+import { revalidatePath } from 'next/cache'
 export default function Home() {
+  revalidatePath()
   return (
     <main className={classes.main}>
       <div className={classes.wrapper}>

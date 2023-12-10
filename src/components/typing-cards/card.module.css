@@ -1,0 +1,28 @@
+.card {
+    font-weight: bold;
+    padding: 0px 10px;
+    display: flex;
+    width: 120px;
+    justify-content: space-between;
+    flex-direction: column;
+    margin: 0px 5px;
+    
+}
+
+.card-value {
+    font-size: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 1.5rem;
+    
+
+}
+.label{
+    font-size: 14px;
+    font-weight: lighter;
+    text-align: center;
+}

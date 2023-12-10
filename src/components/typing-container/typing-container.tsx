@@ -1,3 +1,5 @@
+import classes from './typing-container.module.css'
+
 const TypingContainer = () => {
     return (
         <div>

@@ -1,0 +1,12 @@
+.card-wrapper {
+    display: flex;
+    justify-content: center;
+    /* flex-direction: column; */
+}
+
+.timer {}
+
+.cards {
+    display: flex;
+    /* justify-content: center; */
+}
