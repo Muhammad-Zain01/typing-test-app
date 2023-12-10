@@ -23,7 +23,7 @@ const TypingResult: React.FC<ComponentProps> = ({ isOpen, setIsOpen, values, res
     const { wpm, cpm, accuracy } = values;
     const reviews = [
         { head: 'Octopus', img: 'https://res.cloudinary.com/dn1j6dpd7/image/upload/v1600425019/typing-speed-test/avatars/octopus.svg', msg: ['Neat!', 'Good job!'] },
-        { head: 'Turtle', img: 'https://res.cloudinary.com/dn1j6dpd7/image/upload/v1600425019/typing-speed-test/avatars/turtle.svg', msg: ['Well...', 'It could be better!']}
+        { head: 'Turtle', img: 'https://res.cloudinary.com/dn1j6dpd7/image/upload/v1600425019/typing-speed-test/avatars/turtle.svg', msg: ['Well...', 'It could be better!'] }
     ]
     const heading = wpm > 25 ? reviews[0].head : reviews[1].head
     const img = wpm > 25 ? reviews[0].img : reviews[1].img
@@ -35,7 +35,13 @@ const TypingResult: React.FC<ComponentProps> = ({ isOpen, setIsOpen, values, res
     }
     return (
         <div>
-            <Modal isCentered blockScrollOnMount={false} size="xl" isOpen={isOpen} onClose={close}>
+            <Modal
+                isCentered
+                blockScrollOnMount={false}
+                size="xl"
+                isOpen={isOpen}
+                onClose={close}
+            >
                 <ModalOverlay />
                 <ModalContent>
                     <ModalCloseButton />
