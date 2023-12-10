@@ -1,0 +1,1 @@
+export const TIMER = 60 // SECONDS
