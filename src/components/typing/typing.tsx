@@ -2,20 +2,20 @@
 import classes from './typing.module.css'
 import TypingContainer from '../typing-container/typing-container';
 import TypingCards from '../typing-cards/typing-cards';
-import { useEffect, useState, useRef } from 'react';
-import { data, data2 } from '@/text';
-import useKeyPress from '@/hooks/useKeyPress';
+import { useState, useRef } from 'react';
+import { getText } from '@/common/data';
 import TypingResult from '../typing-result/typing-result';
 const Typing = () => {
     const words = data.split('')
+
     const typeStrokes = useRef(0)
     const keyStrokes = useRef(1)
     const intervalId = useRef(null);
     const calcIntervalId = useRef(null);
     const timeRef = useRef(1);
-    const [text, setText] = useState<string[]>(words)
+
+    const [text, setText] = useState<string[]>(getText())
     const [currentIndex, setCurrentIndex] = useState(0)
-    const [currentKey, setCurrentKey] = useState("")
     const [wpm, setwpm] = useState(0)
     const [cpm, setcpm] = useState(0)
     const [accuracy, setAccuracy] = useState(0)
@@ -25,10 +25,9 @@ const Typing = () => {
     const values = { wpm, cpm, accuracy }
 
     const changeText = () => {
-        setText(data2.split(''))
+        setText(getText())
         setCurrentIndex(0)
         setStatus(0)
-        setCurrentKey('')
     }
 
     const reset = () => {
@@ -82,7 +81,7 @@ const Typing = () => {
     const onKeyPress = (e) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
-            keyStrokes.current =  keyStrokes.current + 1
+            keyStrokes.current = keyStrokes.current + 1
             initTimer()
             calcParams()
             if (key === text[currentIndex]) {
@@ -97,7 +96,7 @@ const Typing = () => {
             }
         }
     }
-    
+
     return (
         <>
             <div className={classes['parameter-container']}>
