@@ -6,7 +6,7 @@ type ComponentProps = {
     index: number;
     status: number;
 }
-
+const statuses = ['current-key', 'green', 'red']
 const TypingContainer: React.FC<ComponentProps> = ({ data, index, status }) => {
     return (
         <div className={classes['typing-box']}  >
@@ -14,7 +14,9 @@ const TypingContainer: React.FC<ComponentProps> = ({ data, index, status }) => {
                 {
                     data.map((item, idx) => {
                         return (
-                            <span key={idx} className={`${idx === index && classes['current-key']}`}>
+                            <span
+                                key={idx}
+                                className={`${idx === index ? classes[statuses[status]] : ""}  ${idx < index ? classes['green'] : ""}`}>
                                 {item}
                             </span>
                         )
