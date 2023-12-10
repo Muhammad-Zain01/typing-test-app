@@ -14,9 +14,7 @@ const useKeyPress = (fn) => {
             }
         };
         window.addEventListener('keydown', downHandler);
-        return () => {
-            window.removeEventListener('keydown', downHandler);
-        };
+        
     }, []);
 };
 

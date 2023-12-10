@@ -20,7 +20,7 @@ const Typing = () => {
     const [status, setStatus] = useState(0);
     const [timer, setTimer] = useState(0)
     const [resultModal, setResultModal] = useState(false);
-    const values = {wpm, cpm, accuracy}
+    const values = { wpm, cpm, accuracy }
 
     const changeText = () => {
         previousTypes.current = currentIndex
@@ -43,17 +43,17 @@ const Typing = () => {
     }
 
     if (timer === 60) {
-        clearInterval(intervalId.current);
+        intervalId.current && clearInterval(intervalId.current);
         setResultModal(true)
     }
     const initTimer = () => {
         if (!intervalId.current) {
             intervalId.current = setInterval(() => {
                 setTimer((prevTimer) => prevTimer < 60 ? prevTimer + 1 : prevTimer);
-                calcParams()
             }, 1000)
         }
     }
+
     const calcParams = () => {
         const typed = previousTypes.current + currentIndex + 1;
         const elaspedTime = timer > 0 ? timer : 1;
@@ -61,27 +61,42 @@ const Typing = () => {
         setcpm(Math.round((typed / elaspedTime) * 60 / 1))
         setAccuracy(Math.round((typed / keyStrokes.current) * 100))
     }
-    useEffect(() => {
-
-        if (currentKey != '') {
-            initTimer()
-            
-            keyStrokes.current =  keyStrokes.current + 1
-            if (currentKey === text[currentIndex]) {
+    
+    console.log("rendering");
+    const onKeyPress = (e) => {
+        const { key } = e;
+        initTimer()
+        if ((key.length === 1 || key === "Backspace")) {
+            if (key === text[currentIndex]) {
                 setCurrentIndex(currentIndex + 1)
                 setStatus(0)
             } else {
                 setStatus(2)
             }
-
             if (words.length === (currentIndex + 1)) {
                 changeText()
             }
         }
-    }, [currentKey])
+    }
+    // useEffect(() => {
+    //     if (currentKey != '') {
+    //         // initTimer()
+    //         keyStrokes.current =  keyStrokes.current + 1
+    //         if (currentKey === text[currentIndex]) {
+    //             setCurrentIndex(currentIndex + 1)
+    //             setStatus(0)
+    //         } else {
+    //             setStatus(2)
+    //         }
 
-    const ExecuteType = (key: string) => setCurrentKey(key)
-    useKeyPress(ExecuteType);
+    //         if (words.length === (currentIndex + 1)) {
+    //             changeText()
+    //         }
+    //     }
+    // }, [currentKey])
+
+    // const ExecuteType = (key: string) => setCurrentKey(key)
+    // useKeyPress(ExecuteType);
 
     return (
         <>
@@ -89,9 +104,9 @@ const Typing = () => {
                 <TypingCards timer={timer} wpm={wpm} cpm={cpm} accuracy={accuracy} />
             </div>
             <div className={classes['typing-container']}>
-                <TypingContainer data={text} index={currentIndex} status={status} />
+                <TypingContainer data={text} index={currentIndex} status={status} onKeyPress={onKeyPress} />
             </div>
-            <TypingResult isOpen={resultModal} setIsOpen={setResultModal} values={values} reset={reset}/>
+            <TypingResult isOpen={resultModal} setIsOpen={setResultModal} values={values} reset={reset} />
         </>
     )
 }
