@@ -4,7 +4,23 @@
     /* flex-direction: column; */
 }
 
-.timer {}
+
+.timer-label {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timer-label span{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.second {
+    font-size: 12px !important;
+    font-weight: 200 !important;
+}
 
 .cards {
     display: flex;
