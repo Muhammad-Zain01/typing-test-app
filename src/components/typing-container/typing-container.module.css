@@ -9,7 +9,8 @@
     justify-content: center;
     box-shadow: 0px 4px 24px rgba(0, 0, 0, .12), -2px 6px 24px rgba(0, 0, 0, .12);
 }
-.typing-box input{
+
+.typing-box input {
     display: hidden;
 }
 
@@ -17,16 +18,24 @@
     width: 100%;
     font-size: 40px;
     padding: 0px 20px;
-    text-overflow: ellipsis;
     height: 100%;
-    overflow: hidden;
-    white-space: nowrap;
 }
-.div span{
+
+.div span {
     padding: 0px 4px;
 }
 
-.current-key{
+.current-key {
     text-decoration: underline;
     color: rgb(137, 137, 137);
+}
+
+.green {
+    color: green;
+    background-color: rgb(129 220 129 / 33%);
+}
+
+.red {
+    text-decoration: underline;
+    color: red;
 }
