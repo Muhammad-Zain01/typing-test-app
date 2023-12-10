@@ -5,21 +5,23 @@ import TypingCards from '../typing-cards/typing-cards';
 import { useEffect, useState, useRef } from 'react';
 import { data, data2 } from '@/text';
 import useKeyPress from '@/hooks/useKeyPress';
+import TypingResult from '../typing-result/typing-result';
 const Typing = () => {
     const words = data.split('')
+    const previousTypes = useRef(0)
+    const keyStrokes = useRef(1)
+    const intervalId = useRef(null);
     const [text, setText] = useState<string[]>(words)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [currentKey, setCurrentKey] = useState("")
-    const previousTypes = useRef(0)
-    const keyStrokes = useRef(1)
-    
     const [wpm, setwpm] = useState(0)
     const [cpm, setcpm] = useState(0)
     const [accuracy, setAccuracy] = useState(0)
-
     const [status, setStatus] = useState(0);
     const [timer, setTimer] = useState(0)
-    const intervalId = useRef(null);
+    const [resultModal, setResultModal] = useState(false);
+    const values = {wpm, cpm, accuracy}
+
     const changeText = () => {
         previousTypes.current = currentIndex
         setText(data2.split(''))
@@ -28,9 +30,21 @@ const Typing = () => {
         setCurrentKey('')
     }
 
+    const reset = () => {
+        previousTypes.current = 0
+        setText(data2.split(''))
+        setTimer(0)
+        setCurrentIndex(0)
+        setStatus(0)
+        setCurrentKey('')
+        setwpm(0)
+        setcpm(0)
+        setAccuracy(0)
+    }
+
     if (timer === 60) {
         clearInterval(intervalId.current);
-        console.log("TIME COMPLETED")
+        setResultModal(true)
     }
     const initTimer = () => {
         if (!intervalId.current) {
@@ -77,6 +91,7 @@ const Typing = () => {
             <div className={classes['typing-container']}>
                 <TypingContainer data={text} index={currentIndex} status={status} />
             </div>
+            <TypingResult isOpen={resultModal} setIsOpen={setResultModal} values={values} reset={reset}/>
         </>
     )
 }
