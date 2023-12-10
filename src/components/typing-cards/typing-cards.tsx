@@ -1,9 +1,8 @@
-'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import classes from './typing-cards.module.css'
 import Card from './card'
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
-
+import { TIMER } from '@/common/settings'
 type ComponentProps = {
     timer: number;
     wpm: number;
@@ -11,9 +10,8 @@ type ComponentProps = {
     accuracy: number;
 }
 const TypingCards: React.FC<ComponentProps> = ({ timer, wpm, cpm, accuracy }) => {
-    // const [percentage, setPercentage] = useState<number>(100)
-    let time = 60;
-    let percentage = 100 - ((100 / time) * timer)
+    let time = TIMER;
+    let percentage = 100 - ((100 / TIMER) * timer)
     return (
         <div className={classes['card-wrapper']}>
             <div className={classes.timer}>
