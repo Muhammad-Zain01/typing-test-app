@@ -28,6 +28,7 @@
 .current-key {
     text-decoration: underline;
     color: rgb(137, 137, 137);
+    animation: blink 1s infinite;
 }
 
 .green {
@@ -38,4 +39,22 @@
 .red {
     text-decoration: underline;
     color: red;
+}
+
+.input {
+    opacity: 0;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.1;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
