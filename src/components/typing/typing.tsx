@@ -8,10 +8,11 @@ import useKeyPress from '@/hooks/useKeyPress';
 import TypingResult from '../typing-result/typing-result';
 const Typing = () => {
     const words = data.split('')
-    const previousTypes = useRef(0)
+    const typeStrokes = useRef(0)
     const keyStrokes = useRef(1)
     const intervalId = useRef(null);
     const calcIntervalId = useRef(null);
+    const timeRef = useRef(1);
     const [text, setText] = useState<string[]>(words)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [currentKey, setCurrentKey] = useState("")
@@ -24,7 +25,6 @@ const Typing = () => {
     const values = { wpm, cpm, accuracy }
 
     const changeText = () => {
-        previousTypes.current = currentIndex
         setText(data2.split(''))
         setCurrentIndex(0)
         setStatus(0)
@@ -32,7 +32,8 @@ const Typing = () => {
     }
 
     const reset = () => {
-        previousTypes.current = 0
+        typeStrokes.current = 0
+        timeRef.current = 1;
         setText(data2.split(''))
         setTimer(0)
         setCurrentIndex(0)
@@ -51,6 +52,7 @@ const Typing = () => {
                         clearInterval(intervalId.current);
                         setResultModal(true)
                     } else if (prevTimer < 60) {
+                        timeRef.current = timeRef.current + 1
                         return prevTimer + 1
                     }
                     return prevTimer
@@ -62,9 +64,9 @@ const Typing = () => {
     const calcParams = () => {
         if (!calcIntervalId.current) {
             calcIntervalId.current = setInterval(() => {
-                const typed = previousTypes.current + currentIndex + 1;
-                const elaspedTime = timer > 0 ? timer : 1;
-
+                const typed = typeStrokes.current;
+                const elaspedTime = timeRef.current;
+                console.log(typed, elaspedTime)
                 const wpm = Math.round((typed / 5) * 60 / elaspedTime)
                 const cpm = Math.round((typed / elaspedTime) * 60 / 1)
                 const accuracy = Math.round((typed / keyStrokes.current) * 100)
@@ -72,18 +74,20 @@ const Typing = () => {
                 setwpm(wpm)
                 setcpm(cpm)
                 setAccuracy(accuracy)
-            }, 5000)
+            }, 2000)
         }
 
     }
 
     const onKeyPress = (e) => {
         const { key } = e;
-        initTimer()
-        calcParams()
         if ((key.length === 1 || key === "Backspace")) {
+            keyStrokes.current =  keyStrokes.current + 1
+            initTimer()
+            calcParams()
             if (key === text[currentIndex]) {
                 setCurrentIndex(currentIndex + 1)
+                typeStrokes.current = typeStrokes.current + 1
                 setStatus(0)
             } else {
                 setStatus(2)
@@ -93,26 +97,7 @@ const Typing = () => {
             }
         }
     }
-    // useEffect(() => {
-    //     if (currentKey != '') {
-    //         // initTimer()
-    //         keyStrokes.current =  keyStrokes.current + 1
-    //         if (currentKey === text[currentIndex]) {
-    //             setCurrentIndex(currentIndex + 1)
-    //             setStatus(0)
-    //         } else {
-    //             setStatus(2)
-    //         }
-
-    //         if (words.length === (currentIndex + 1)) {
-    //             changeText()
-    //         }
-    //     }
-    // }, [currentKey])
-
-    // const ExecuteType = (key: string) => setCurrentKey(key)
-    // useKeyPress(ExecuteType);
-
+    
     return (
         <>
             <div className={classes['parameter-container']}>
