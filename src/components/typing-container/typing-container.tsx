@@ -1,6 +1,6 @@
 'use client'
 import classes from './typing-container.module.css'
-import React from 'react'
+import React, { useState } from 'react'
 import { useRef } from 'react'
 type ComponentProps = {
     data: string[];
@@ -10,6 +10,7 @@ type ComponentProps = {
 const statuses = ['current-key', 'green', 'red']
 const TypingContainer: React.FC<ComponentProps> = ({ data, index, status, onKeyPress }) => {
     const inputRef = useRef()
+    const [isFocused, setIsFocused] = useState(false)
     return (
         <>
             <div className={classes['typing-box']} onClick={() => inputRef.current.focus()}  >
@@ -19,7 +20,7 @@ const TypingContainer: React.FC<ComponentProps> = ({ data, index, status, onKeyP
                             return (
                                 <span
                                     key={idx}
-                                    className={`${idx === index ? classes[statuses[status]] : ""}  ${idx < index ? classes['green'] : ""}`}>
+                                    className={`${isFocused && idx === index ? classes[statuses[status]] : ""}  ${idx < index ? classes['green'] : ""}`}>
                                     {item}
                                 </span>
                             )
@@ -29,8 +30,10 @@ const TypingContainer: React.FC<ComponentProps> = ({ data, index, status, onKeyP
 
             </div>
             <input
-                style={{ opacity: 0 }}
+                className={classes.input}
                 ref={inputRef}
+                onBlur={() => setIsFocused(false)}
+                onFocus={() => setIsFocused(true)}
                 onKeyDown={onKeyPress}
                 type="text"
             />
