@@ -11,6 +11,7 @@ const Typing = () => {
     const previousTypes = useRef(0)
     const keyStrokes = useRef(1)
     const intervalId = useRef(null);
+    const calcIntervalId = useRef(null);
     const [text, setText] = useState<string[]>(words)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [currentKey, setCurrentKey] = useState("")
@@ -42,30 +43,44 @@ const Typing = () => {
         setAccuracy(0)
     }
 
-    if (timer === 60) {
-        intervalId.current && clearInterval(intervalId.current);
-        setResultModal(true)
-    }
     const initTimer = () => {
         if (!intervalId.current) {
             intervalId.current = setInterval(() => {
-                setTimer((prevTimer) => prevTimer < 60 ? prevTimer + 1 : prevTimer);
+                setTimer((prevTimer) => {
+                    if (prevTimer === 60) {
+                        clearInterval(intervalId.current);
+                        setResultModal(true)
+                    } else if (prevTimer < 60) {
+                        return prevTimer + 1
+                    }
+                    return prevTimer
+                });
             }, 1000)
         }
     }
 
     const calcParams = () => {
-        const typed = previousTypes.current + currentIndex + 1;
-        const elaspedTime = timer > 0 ? timer : 1;
-        setwpm(Math.round((typed / 5) * 60 / elaspedTime))
-        setcpm(Math.round((typed / elaspedTime) * 60 / 1))
-        setAccuracy(Math.round((typed / keyStrokes.current) * 100))
+        if (!calcIntervalId.current) {
+            calcIntervalId.current = setInterval(() => {
+                const typed = previousTypes.current + currentIndex + 1;
+                const elaspedTime = timer > 0 ? timer : 1;
+
+                const wpm = Math.round((typed / 5) * 60 / elaspedTime)
+                const cpm = Math.round((typed / elaspedTime) * 60 / 1)
+                const accuracy = Math.round((typed / keyStrokes.current) * 100)
+
+                setwpm(wpm)
+                setcpm(cpm)
+                setAccuracy(accuracy)
+            }, 5000)
+        }
+
     }
-    
-    console.log("rendering");
+
     const onKeyPress = (e) => {
         const { key } = e;
         initTimer()
+        calcParams()
         if ((key.length === 1 || key === "Backspace")) {
             if (key === text[currentIndex]) {
                 setCurrentIndex(currentIndex + 1)
