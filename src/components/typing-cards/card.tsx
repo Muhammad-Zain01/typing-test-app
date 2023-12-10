@@ -1,5 +1,9 @@
+import React from 'react'
 import classes from './card.module.css'
-const Card = () => {
+type ComponentProps = {
+    label: string
+}
+const Card: React.FC<ComponentProps> = ({ label }): JSX.Element => {
     return (
         <div className={classes.card}>
             <div className={classes['card-value']}>
@@ -8,7 +12,7 @@ const Card = () => {
                 </span>
             </div>
             <div className={classes.label}>
-                words/min
+                {label}
             </div>
         </div>
     )
