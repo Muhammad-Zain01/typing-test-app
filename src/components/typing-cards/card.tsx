@@ -2,13 +2,14 @@ import React from 'react'
 import classes from './card.module.css'
 type ComponentProps = {
     label: string
+    value: number
 }
-const Card: React.FC<ComponentProps> = ({ label }): JSX.Element => {
+const Card: React.FC<ComponentProps> = ({ label, value }): JSX.Element => {
     return (
         <div className={classes.card}>
             <div className={classes['card-value']}>
                 <span>
-                    0
+                    {value}
                 </span>
             </div>
             <div className={classes.label}>
