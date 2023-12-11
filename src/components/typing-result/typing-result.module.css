@@ -1,32 +1,46 @@
-.result{
+.result {
     padding: 20px
 }
-.heading{
+
+.heading {
     font-size: 30px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 20px;
 }
-.image{
+
+.image {
     display: flex;
     justify-content: center;
     margin-bottom: 20px
 }
-.result-text{
+
+.result-text {
     font-size: 22px;
     font-weight: 300;
     text-align: justify;
 }
-.result-text mark{
+
+.result-text mark {
     background-color: #ffd000;
     padding: 5px;
 }
-.button{
+
+.button {
     margin-top: 30px;
     display: flex;
     justify-content: center;
 }
-.button button{
+
+.button button {
+    height: 50px;
     font-size: 20px;
-    padding: 25px 30px;
+    padding: 0px 20px;
+    background-color: #ffd000;
+    color: black;
+}
+
+.button button:hover {
+    background-color: #eabf00 !important;
+    color: rgb(0, 0, 0) !important;
 }

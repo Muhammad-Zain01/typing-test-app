@@ -3,6 +3,7 @@ import classes from './typing-container.module.css'
 import React, { useState } from 'react'
 import { useRef } from 'react'
 import useTypingContext from '@/hooks/useTypingContext'
+import { Divider, Popover } from 'antd'
 type ComponentProps = {
     onKeyPress: (key: any) => void
 }
@@ -19,11 +20,36 @@ const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
                     {
                         currentParagraph.map((item, idx) => {
                             return (
-                                <span
-                                    key={idx}
-                                    className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
-                                    {item}
-                                </span>
+                                <>
+                                    {
+                                        idx == 0 ? (
+                                            <Popover
+                                                content={
+                                                    <div>
+                                                        Start Typing Here
+                                                    </div>
+                                                }
+                                                trigger="click"
+                                                open={true}
+                                                key={idx + "UNIQE"}
+                                            // onOpenChange={handleOpenChange}
+                                            >
+                                                <span
+                                                    key={idx}
+                                                    className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
+                                                    {item}
+                                                </span>
+                                            </Popover>
+                                        ) : (
+                                            <span
+                                                key={idx}
+                                                className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
+                                                {item}
+                                            </span>
+                                        )
+                                    }
+                                </>
+
                             )
                         })
                     }

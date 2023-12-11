@@ -1,11 +1,4 @@
-import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalBody,
-    ModalCloseButton,
-    Button
-} from '@chakra-ui/react'
+import { Modal, Button } from 'antd';
 import React from 'react';
 import classes from './typing-result.module.css'
 import useTypingContext from '@/hooks/useTypingContext';
@@ -30,34 +23,26 @@ const TypingResult: React.FC<ComponentProps> = ({ reset }) => {
     return (
         <div>
             <Modal
-                isCentered
-                blockScrollOnMount={false}
-                size="xl"
-                isOpen={resultModal}
-                onClose={close}
+                open={resultModal}
+                onCancel={close}
+                footer={false}
             >
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <div className={classes.result}>
-                            <h2 className={classes.heading}>
-                                You&apos;re an {heading}.
-                            </h2>
-                            <div className={classes.image}>
-                                <img src={img} alt={heading} />
-                            </div>
-                            <p className={classes['result-text']}>
-                                {msg[0]} You type with the speed of <mark>{wpm} WPM</mark> ({cpm} CPM). Your accuracy was <b>{accuracy}%</b>. {msg[1]}
-                            </p>
-                            <div className={classes.button}>
-                                <Button colorScheme='yellow' mr={3} onClick={close}>
-                                    Try again
-                                </Button>
-                            </div>
-                        </div>
-                    </ModalBody>
-                </ModalContent>
+                <div className={classes.result}>
+                    <h2 className={classes.heading}>
+                        You&apos;re an {heading}.
+                    </h2>
+                    <div className={classes.image}>
+                        <img src={img} alt={heading} />
+                    </div>
+                    <p className={classes['result-text']}>
+                        {msg[0]} You type with the speed of <mark>{wpm} WPM</mark> ({cpm} CPM). Your accuracy was <b>{accuracy}%</b>. {msg[1]}
+                    </p>
+                    <div className={classes.button}>
+                        <Button type='primary' onClick={close}>
+                            Try again
+                        </Button>
+                    </div>
+                </div>
             </Modal>
         </div>
     )

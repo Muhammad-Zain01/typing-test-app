@@ -1,1 +1,1 @@
-export const TIMER = 60 // SECONDS
+export const TIMER = 10 // SECONDS

@@ -2,13 +2,15 @@
 import classes from './typing.module.css'
 import TypingContainer from '../typing-container/typing-container';
 import TypingCards from '../typing-cards/typing-cards';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import { getText } from '@/common/data';
 import TypingResult from '../typing-result/typing-result';
 import { useEffect } from 'react';
 import { TIMER } from '@/common/settings';
 import useTypingContext from '@/hooks/useTypingContext';
+import useSound from 'use-sound';
 const Typing = () => {
+    const [play] = useSound('/typing.mp3');
     const {
         setCurrentParagraph,
         setCurrentIndex,
@@ -22,9 +24,6 @@ const Typing = () => {
         incrementIndex,
         currentParagraph,
         currentIndex,
-        wpm,
-        cpm,
-        accuracy,
         currentTimer,
     } = useTypingContext();
     const typeStrokes = useRef(0) // Calculate How Much Right Characters I Typed
@@ -83,6 +82,7 @@ const Typing = () => {
     const onKeyPress = (e) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
+            play()
             keyStrokes.current = keyStrokes.current + 1
             initTimer()
             calcParams()
