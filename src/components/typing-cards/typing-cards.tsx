@@ -3,15 +3,12 @@ import classes from './typing-cards.module.css'
 import Card from './card'
 import { CircularProgress, CircularProgressLabel } from '@chakra-ui/react'
 import { TIMER } from '@/common/settings'
-type ComponentProps = {
-    timer: number;
-    wpm: number;
-    cpm: number;
-    accuracy: number;
-}
-const TypingCards: React.FC<ComponentProps> = ({ timer, wpm, cpm, accuracy }) => {
+import useTypingContext from '@/hooks/useTypingContext'
+const TypingCards: React.FC = () => {
+    const { currentTimer, wpm, cpm, accuracy } = useTypingContext()
     let time = TIMER;
-    let percentage = 100 - ((100 / TIMER) * timer)
+    let percentage = 100 - ((100 / TIMER) * currentTimer)
+    
     return (
         <div className={classes['card-wrapper']}>
             <div className={classes.timer}>
@@ -24,7 +21,7 @@ const TypingCards: React.FC<ComponentProps> = ({ timer, wpm, cpm, accuracy }) =>
                 >
                     <CircularProgressLabel>
                         <span className={classes['timer-label']}>
-                            <span> {time - timer} </span>
+                            <span> {time - currentTimer} </span>
                             <span className={classes.second}>SECONDS</span>
                         </span>
                     </CircularProgressLabel>
