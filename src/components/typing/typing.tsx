@@ -7,39 +7,49 @@ import { getText } from '@/common/data';
 import TypingResult from '../typing-result/typing-result';
 import { useEffect } from 'react';
 import { TIMER } from '@/common/settings';
+import useTypingContext from '@/hooks/useTypingContext';
 const Typing = () => {
-    const typeStrokes = useRef(0)
-    const keyStrokes = useRef(1)
-    const intervalId = useRef(null);
-    const calcIntervalId = useRef(null);
-    const timeRef = useRef(1);
+    const {
+        setCurrentParagraph,
+        setCurrentIndex,
+        setCpm,
+        setWpm,
+        setAccuracy,
+        setCurrentStatus,
+        setCurrentTimer,
+        setResultModal,
+        incrementTimer,
+        incrementIndex,
+        currentParagraph,
+        currentIndex,
+        wpm,
+        cpm,
+        accuracy,
+        currentTimer,
+    } = useTypingContext();
+    const typeStrokes = useRef(0) // Calculate How Much Right Characters I Typed
+    const keyStrokes = useRef(1) // Calculate Total Characters I Typed Either Wrong or Right
+    const intervalId = useRef(null); // Time Interval Id
+    const calcIntervalId = useRef(null); // Parameter Calculation Interval Id
+    const timeRef = useRef(1); // Save Time Based on Seconds
 
-    const [text, setText] = useState([])
-    const [currentIndex, setCurrentIndex] = useState(0)
-    const [wpm, setwpm] = useState(0)
-    const [cpm, setcpm] = useState(0)
-    const [accuracy, setAccuracy] = useState(0)
-    const [status, setStatus] = useState(0);
-    const [timer, setTimer] = useState(0)
-    const [resultModal, setResultModal] = useState(false);
-    const values = { wpm, cpm, accuracy }
 
     const changeText = () => {
-        setText(getText())
+        setCurrentParagraph(getText())
         setCurrentIndex(0)
-        setStatus(0)
+        setCurrentStatus(0)
     }
 
     const reset = () => {
         typeStrokes.current = 0
         keyStrokes.current = 1
         timeRef.current = 1;
-        setText(getText())
-        setTimer(0)
+        setCurrentParagraph(getText())
+        setCurrentTimer(0)
         setCurrentIndex(0)
-        setStatus(0)
-        setwpm(0)
-        setcpm(0)
+        setCurrentStatus(0)
+        setWpm(0)
+        setCpm(0)
         setAccuracy(0)
         intervalId.current = null
         calcIntervalId.current = null
@@ -47,16 +57,8 @@ const Typing = () => {
     const initTimer = () => {
         if (!intervalId.current) {
             intervalId.current = setInterval(() => {
-                setTimer((prevTimer) => {
-                    if (prevTimer === TIMER) {
-                        clearInterval(intervalId.current);
-                        setResultModal(true)
-                    } else if (prevTimer < TIMER) {
-                        timeRef.current = timeRef.current + 1
-                        return prevTimer + 1
-                    }
-                    return prevTimer
-                });
+                incrementTimer()
+                timeRef.current = timeRef.current + 1
             }, 1000)
         }
     }
@@ -70,8 +72,8 @@ const Typing = () => {
                 const cpm = Math.round((typed / elaspedTime) * 60 / 1)
                 const accuracy = Math.round((typed / keyStrokes.current) * 100)
 
-                setwpm(wpm)
-                setcpm(cpm)
+                setWpm(wpm)
+                setCpm(cpm)
                 setAccuracy(accuracy)
             }, 2000)
         }
@@ -85,30 +87,37 @@ const Typing = () => {
             initTimer()
             calcParams()
 
-            if (key === text[currentIndex]) {
-                setCurrentIndex(currentIndex + 1)
+            if (key === currentParagraph[currentIndex]) {
+                incrementIndex()
+                setCurrentStatus(0)
                 typeStrokes.current = typeStrokes.current + 1
-                setStatus(0)
             } else {
-                setStatus(2)
+                setCurrentStatus(2)
             }
-            if (text.length === (currentIndex + 1)) {
+
+            if (currentParagraph.length === (currentIndex + 1)) {
                 changeText()
             }
         }
     }
     useEffect(() => {
-        setText(getText());
-    },[])
+        setCurrentParagraph(getText());
+    }, [])
+    useEffect(() => {
+        if (currentTimer == TIMER) {
+            clearInterval(intervalId.current);
+            setResultModal(true)
+        }
+    }, [currentTimer])
     return (
         <>
             <div className={classes['parameter-container']}>
-                <TypingCards timer={timer} wpm={wpm} cpm={cpm} accuracy={accuracy} />
+                <TypingCards />
             </div>
             <div className={classes['typing-container']}>
-                <TypingContainer data={text} index={currentIndex} status={status} onKeyPress={onKeyPress} />
+                <TypingContainer onKeyPress={onKeyPress} />
             </div>
-            <TypingResult isOpen={resultModal} setIsOpen={setResultModal} values={values} reset={reset} />
+            <TypingResult reset={reset} />
         </>
     )
 }
