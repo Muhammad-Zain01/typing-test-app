@@ -16,13 +16,13 @@
 
 .div {
     width: 100%;
-    font-size: 40px;
+    font-size: 35px;
     padding: 0px 20px;
     height: 100%;
 }
 
 .div span {
-    padding: 0px 4px;
+    padding: 0px 2px;
 }
 
 .current-key {
