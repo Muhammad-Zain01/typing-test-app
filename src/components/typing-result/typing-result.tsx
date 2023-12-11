@@ -8,19 +8,13 @@ import {
 } from '@chakra-ui/react'
 import React from 'react';
 import classes from './typing-result.module.css'
-
+import useTypingContext from '@/hooks/useTypingContext';
 type ComponentProps = {
-    isOpen: boolean;
-    setIsOpen: () => void;
-    values: {
-        wpm: number;
-        cpm: number;
-        accuracy: number;
-        reset: () => void
-    }
+    reset: () => void
 }
-const TypingResult: React.FC<ComponentProps> = ({ isOpen, setIsOpen, values, reset }) => {
-    const { wpm, cpm, accuracy } = values;
+const TypingResult: React.FC<ComponentProps> = ({ reset }) => {
+    const { wpm, cpm, accuracy, resultModal, setResultModal } = useTypingContext()
+
     const reviews = [
         { head: 'Octopus', img: 'https://res.cloudinary.com/dn1j6dpd7/image/upload/v1600425019/typing-speed-test/avatars/octopus.svg', msg: ['Neat!', 'Good job!'] },
         { head: 'Turtle', img: 'https://res.cloudinary.com/dn1j6dpd7/image/upload/v1600425019/typing-speed-test/avatars/turtle.svg', msg: ['Well...', 'It could be better!'] }
@@ -30,7 +24,7 @@ const TypingResult: React.FC<ComponentProps> = ({ isOpen, setIsOpen, values, res
     const msg = wpm > 25 ? reviews[0].msg : reviews[1].msg
 
     const close = () => {
-        setIsOpen(false)
+        setResultModal(false)
         reset()
     }
     return (
@@ -39,7 +33,7 @@ const TypingResult: React.FC<ComponentProps> = ({ isOpen, setIsOpen, values, res
                 isCentered
                 blockScrollOnMount={false}
                 size="xl"
-                isOpen={isOpen}
+                isOpen={resultModal}
                 onClose={close}
             >
                 <ModalOverlay />
