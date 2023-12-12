@@ -1,6 +1,7 @@
 import classes from './page.module.css'
 import Typing from '@/components/typing/typing'
 import Settings from '@/components/setting/setting'
+import { Suspense } from 'react'
 export default function Home() {
   return (
     <main className={classes.main}>
