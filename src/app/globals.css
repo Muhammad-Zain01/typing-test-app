@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Neuton&display=swap');
-body{
+
+body {
     font-family: 'Poppins', sans-serif;
+}
+
+.ant-tooltip {
+    color: black !important;
+    animation: trans 1s infinite;
+}
+
+.ant-tooltip-inner {
+    padding: 5px 10px !important;
+    color: black !important;
+}
+
+@keyframes trans {
+    0% {
+        transform: translateY(-5px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+
+    100% {
+        transform: translateY(-5px);
+    }
 }
