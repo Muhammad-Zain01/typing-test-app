@@ -6,7 +6,6 @@ import { useRef } from 'react';
 import { getText } from '@/common/data';
 import TypingResult from '../typing-result/typing-result';
 import { useEffect } from 'react';
-import { TIMER } from '@/common/settings';
 import useTypingContext from '@/hooks/useTypingContext';
 import useSound from 'use-sound';
 const Typing = () => {
@@ -25,6 +24,8 @@ const Typing = () => {
         currentParagraph,
         currentIndex,
         currentTimer,
+        defaultTimer,
+        defaultSound
     } = useTypingContext();
     const typeStrokes = useRef(0) // Calculate How Much Right Characters I Typed
     const keyStrokes = useRef(1) // Calculate Total Characters I Typed Either Wrong or Right
@@ -82,7 +83,7 @@ const Typing = () => {
     const onKeyPress = (e) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
-            play()
+            defaultSound && play()
             keyStrokes.current = keyStrokes.current + 1
             initTimer()
             calcParams()
@@ -104,7 +105,7 @@ const Typing = () => {
         setCurrentParagraph(getText());
     }, [])
     useEffect(() => {
-        if (currentTimer == TIMER) {
+        if (currentTimer == defaultTimer) {
             clearInterval(intervalId.current);
             setResultModal(true)
         }
