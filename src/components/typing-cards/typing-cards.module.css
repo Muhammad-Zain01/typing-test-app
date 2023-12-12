@@ -4,17 +4,22 @@
     /* flex-direction: column; */
 }
 
+.timer{
+    margin-right: 50px;
+}
+
 
 .timer-label {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    color: black;
 }
 
 .timer-label span{
     font-size: 40px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 .second {
