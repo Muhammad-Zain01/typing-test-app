@@ -1,14 +1,11 @@
 import React from 'react'
 import classes from './typing-cards.module.css'
 import Card from './card'
-import { TIMER } from '@/common/settings'
 import useTypingContext from '@/hooks/useTypingContext'
 import { Progress } from 'antd'
 const TypingCards: React.FC = () => {
-    const { currentTimer, wpm, cpm, accuracy } = useTypingContext()
-    let time = TIMER;
-    let percentage = 100 - ((100 / TIMER) * currentTimer)
-
+    const { currentTimer, wpm, cpm, accuracy, defaultTimer } = useTypingContext()
+    let percentage = 100 - ((100 / defaultTimer) * currentTimer)
     return (
         <div className={classes['card-wrapper']}>
             <div className={classes.timer}>
@@ -22,7 +19,7 @@ const TypingCards: React.FC = () => {
                     format={
                         () => (
                             <span className={classes['timer-label']}>
-                                <span> {time - currentTimer} </span>
+                                <span> {defaultTimer - currentTimer} </span>
                                 <span className={classes.second}>seconds</span>
                             </span>
                         )} />
