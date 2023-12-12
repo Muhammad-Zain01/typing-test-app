@@ -3,7 +3,7 @@ import classes from './typing-container.module.css'
 import React, { useState } from 'react'
 import { useRef } from 'react'
 import useTypingContext from '@/hooks/useTypingContext'
-import { Divider, Popover } from 'antd'
+import { Divider, Popover, Tooltip } from 'antd'
 type ComponentProps = {
     onKeyPress: (key: any) => void
 }
@@ -23,23 +23,36 @@ const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
                                 <>
                                     {
                                         idx == 0 ? (
-                                            <Popover
-                                                content={
-                                                    <div>
-                                                        Start Typing Here
-                                                    </div>
-                                                }
-                                                trigger="click"
+                                            <Tooltip
+                                                title={"Start Typing"}
+                                                key={idx}
+                                                className={classes.typingLabel}
+                                                color='#ffd000'
                                                 open={true}
-                                                key={idx + "UNIQE"}
-                                            // onOpenChange={handleOpenChange}
                                             >
                                                 <span
                                                     key={idx}
                                                     className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
                                                     {item}
                                                 </span>
-                                            </Popover>
+                                            </Tooltip>
+                                            // <Popover
+                                            //     
+                                            //     content={
+                                            //         <div className={classes.typingLabel}>
+                                            //             Start Typing
+                                            //         </div>
+                                            //     }
+                                            //     trigger="click"
+                                            //     open={currentIndex == 0 ? true : false}
+                                            //     key={idx}
+                                            // >
+                                            //     <span
+                                            //         key={idx}
+                                            //         className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
+                                            //         {item}
+                                            //     </span>
+                                            // </Popover>
                                         ) : (
                                             <span
                                                 key={idx}
