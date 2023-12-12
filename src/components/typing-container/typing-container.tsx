@@ -3,7 +3,7 @@ import classes from './typing-container.module.css'
 import React, { useState } from 'react'
 import { useRef } from 'react'
 import useTypingContext from '@/hooks/useTypingContext'
-import { Divider, Popover, Tooltip } from 'antd'
+import { Tooltip } from 'antd'
 type ComponentProps = {
     onKeyPress: (key: any) => void
 }
@@ -28,7 +28,7 @@ const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
                                                 key={idx}
                                                 className={classes.typingLabel}
                                                 color='#ffd000'
-                                                open={true}
+                                                open={currentIndex == 0 ? true : false}
                                             >
                                                 <span
                                                     key={idx}
