@@ -34,7 +34,7 @@ const Settings = () => {
                     <Switch
                         checkedChildren={<CheckOutlined />}
                         unCheckedChildren={<CloseOutlined />}
-                        onChange={() => updateDefaultSound}
+                        onChange={() => updateDefaultSound()}
                         defaultValue={true}
                     />
                 </div>
