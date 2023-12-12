@@ -10,12 +10,12 @@ type ComponentProps = {
 const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
     const { currentParagraph, currentIndex, currentStatus } = useTypingContext()
     const [isFocused, setIsFocused] = useState(false)
-    const inputRef = useRef()
+    const inputRef = useRef<HTMLInputElement>(null)
     const Status = ['current-key', 'green', 'red']
 
     return (
         <>
-            <div className={classes['typing-box']} onClick={() => inputRef.current.focus()}  >
+            <div className={classes['typing-box']} onClick={() => inputRef.current && inputRef.current.focus()}  >
                 <div className={classes.div}>
                     {
                         currentParagraph.map((item, idx) => {
@@ -36,23 +36,6 @@ const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
                                                     {item}
                                                 </span>
                                             </Tooltip>
-                                            // <Popover
-                                            //     
-                                            //     content={
-                                            //         <div className={classes.typingLabel}>
-                                            //             Start Typing
-                                            //         </div>
-                                            //     }
-                                            //     trigger="click"
-                                            //     open={currentIndex == 0 ? true : false}
-                                            //     key={idx}
-                                            // >
-                                            //     <span
-                                            //         key={idx}
-                                            //         className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
-                                            //         {item}
-                                            //     </span>
-                                            // </Popover>
                                         ) : (
                                             <span
                                                 key={idx}

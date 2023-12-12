@@ -7,9 +7,11 @@ import { getText } from '@/common/data';
 import TypingResult from '../typing-result/typing-result';
 import { useEffect } from 'react';
 import useTypingContext from '@/hooks/useTypingContext';
-import useSound from 'use-sound';
+import { Howl } from 'howler';
+
 const Typing = () => {
-    const [play] = useSound('/typing.mp3');
+    var sound = new Howl({ src: ['/typing.mp3'] });
+    const play = () => sound.play();
     const {
         setCurrentParagraph,
         setCurrentIndex,
