@@ -1,5 +1,5 @@
 'use client'
-import React from "react"
+import React, { Reducer } from "react"
 import { createContext, useReducer } from "react"
 
 const TYPES = {
@@ -33,11 +33,19 @@ type ContextState = {
     setWpm?: (value: number) => void,
     setCpm?: (value: number) => void,
     setAccuracy?: (value: number) => void,
+    incrementIndex?: () => void,
     setCurrentStatus?: (value: number) => void,
     setCurrentTimer?: (value: number) => void,
+    updateDefaultTimer?: (value: number) => void,
+    updateDefaultSound?: () => void,
     setResultModal?: (value: boolean) => void,
+    incrementTimer?: () => void
 }
 
+type Action = {
+    type: any;
+    payload: any;
+}
 const initialState: ContextState = {
     currentParagraph: [],
     currentIndex: 0,
@@ -62,14 +70,13 @@ const defaultValue = {
     setCurrentTimer: (value: number) => { },
     setResultModal: (value: boolean) => { },
     incrementIndex: () => { },
-    incrementTimer: () => { },
     updateDefaultTimer: (timer: number) => { },
     updateDefaultSound: () => { }
 }
 
 const createAction = (type: string, payload: any) => ({ type, payload })
-const TypingReducer = (state, action) => {
-    switch (action.type) {
+const TypingReducer: Reducer<any, Action> = (state, action) => {
+    switch (action.type) {  
         case TYPES.paragraph:
             return {
                 ...state,
@@ -134,10 +141,14 @@ const TypingReducer = (state, action) => {
 }
 
 export const TypingContext = createContext(defaultValue);
-export const TypingProvider = ({ children }) => {
+
+type Provider = {
+    children: React.ReactNode
+}
+export const TypingProvider: React.FC<Provider> = ({ children }) => {
     const [state, dispatch] = useReducer(TypingReducer, defaultValue);
 
-    const setCurrentParagraph = (value) => { dispatch(createAction(TYPES.paragraph, value)) }
+    const setCurrentParagraph = (value: string[] | []) => { dispatch(createAction(TYPES.paragraph, value)) }
     const setCurrentIndex = (value: number) => { dispatch(createAction(TYPES.index, value)) }
     const setWpm = (value: number) => { dispatch(createAction(TYPES.wpm, value)) }
     const setCpm = (value: number) => { dispatch(createAction(TYPES.cpm, value)) }
@@ -148,7 +159,7 @@ export const TypingProvider = ({ children }) => {
     const incrementIndex = () => { dispatch(createAction(TYPES.indexIncrement, null)) }
     const incrementTimer = () => { dispatch(createAction(TYPES.timerIncrement, null)) }
     const updateDefaultTimer = (timer: number) => { dispatch(createAction(TYPES.updateDefaultTimer, timer)) }
-    const updateDefaultSound = (timer: number) => { dispatch(createAction(TYPES.updateSound, timer)) }
+    const updateDefaultSound = () => { dispatch(createAction(TYPES.updateSound, null)) }
     const value = {
         ...state,
         setCurrentParagraph,

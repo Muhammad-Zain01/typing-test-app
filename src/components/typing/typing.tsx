@@ -29,11 +29,11 @@ const Typing = () => {
         defaultTimer,
         defaultSound
     } = useTypingContext();
-    const typeStrokes = useRef(0) // Calculate How Much Right Characters I Typed
-    const keyStrokes = useRef(1) // Calculate Total Characters I Typed Either Wrong or Right
-    const intervalId = useRef(null); // Time Interval Id
-    const calcIntervalId = useRef(null); // Parameter Calculation Interval Id
-    const timeRef = useRef(1); // Save Time Based on Seconds
+    const typeStrokes = useRef<number>(0) // Calculate How Much Right Characters I Typed
+    const keyStrokes = useRef<number>(1) // Calculate Total Characters I Typed Either Wrong or Right
+    const intervalId = useRef<NodeJS.Timeout | null>(null); // Time Interval Id
+    const calcIntervalId = useRef<NodeJS.Timeout | null>(null); // Parameter Calculation Interval Id
+    const timeRef = useRef<number>(1); // Save Time Based on Seconds
 
 
     const changeText = () => {
@@ -59,7 +59,7 @@ const Typing = () => {
     const initTimer = () => {
         if (!intervalId.current) {
             intervalId.current = setInterval(() => {
-                incrementTimer()
+                incrementTimer && incrementTimer()
                 timeRef.current = timeRef.current + 1
             }, 1000)
         }
@@ -82,7 +82,7 @@ const Typing = () => {
 
     }
 
-    const onKeyPress = (e) => {
+    const onKeyPress = (e: KeyboardEvent) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
             defaultSound && play()
@@ -108,7 +108,10 @@ const Typing = () => {
     }, [])
     useEffect(() => {
         if (currentTimer == defaultTimer) {
-            clearInterval(intervalId.current);
+            if (intervalId.current) {
+                clearInterval(intervalId.current);
+                intervalId.current = null;
+            }
             setResultModal(true)
         }
     }, [currentTimer])

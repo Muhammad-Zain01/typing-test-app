@@ -16,7 +16,7 @@ const Settings = () => {
                         id='time'
                         defaultValue={60}
                         style={{ width: '100%' }}
-                        onChange={(e) => updateDefaultTimer(e)}
+                        onChange={(e) => { updateDefaultTimer(e) }}
                         options={[
                             { value: 60, label: '1 Minute' },
                             { value: 120, label: '2 Minute' },

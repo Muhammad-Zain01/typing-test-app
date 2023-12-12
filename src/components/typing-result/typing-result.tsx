@@ -17,7 +17,7 @@ const TypingResult: React.FC<ComponentProps> = ({ reset }) => {
     const msg = wpm > 25 ? reviews[0].msg : reviews[1].msg
 
     const close = () => {
-        setResultModal(false)
+        setResultModal && setResultModal(false)
         reset()
     }
     return (
