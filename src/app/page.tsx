@@ -1,5 +1,6 @@
 import classes from './page.module.css'
 import Typing from '@/components/typing/typing'
+import Settings from '@/components/setting/setting'
 export default function Home() {
   return (
     <main className={classes.main}>
@@ -14,6 +15,7 @@ export default function Home() {
         </div>
         <Typing />
       </div>
+      <Settings />
     </main>
   )
 }
