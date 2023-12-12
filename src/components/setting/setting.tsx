@@ -1,7 +1,10 @@
+'use client'
 import { CheckOutlined, CloseOutlined, SettingOutlined } from '@ant-design/icons'
 import classes from './setting.module.css'
 import { Popover, Select, Switch } from 'antd';
+import useTypingContext from '@/hooks/useTypingContext';
 const Settings = () => {
+    const { updateDefaultTimer, updateDefaultSound } = useTypingContext();
     const settigns = (
         <div style={{ width: '200px', padding: '10px 0px' }}>
             <div>
@@ -13,6 +16,7 @@ const Settings = () => {
                         id='time'
                         defaultValue={60}
                         style={{ width: '100%' }}
+                        onChange={(e) => updateDefaultTimer(e)}
                         options={[
                             { value: 60, label: '1 Minute' },
                             { value: 120, label: '2 Minute' },
@@ -30,6 +34,7 @@ const Settings = () => {
                     <Switch
                         checkedChildren={<CheckOutlined />}
                         unCheckedChildren={<CloseOutlined />}
+                        onChange={() => updateDefaultSound}
                         defaultValue={true}
                     />
                 </div>

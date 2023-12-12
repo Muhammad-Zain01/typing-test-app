@@ -12,7 +12,9 @@ const TYPES = {
     status: "SET_STATUS",
     timer: "SET_TIMER",
     timerIncrement: "INCREMENT_TIMER",
-    resultModal: "SET_RESULT_MODAL"
+    resultModal: "SET_RESULT_MODAL",
+    updateDefaultTimer: "SET_UPDATE_DEFAULT_TIMER",
+    updateSound: "SET_UPDATE_SOUND",
 }
 
 type ContextState = {
@@ -24,6 +26,8 @@ type ContextState = {
     currentStatus: number;
     currentTimer: number;
     resultModal: false;
+    defaultTimer: number;
+    defaultSound: boolean;
     setCurrentParagraph?: (value: string[] | []) => void,
     setCurrentIndex?: (value: number) => void,
     setWpm?: (value: number) => void,
@@ -43,6 +47,8 @@ const initialState: ContextState = {
     currentStatus: 0,
     currentTimer: 0,
     resultModal: false,
+    defaultTimer: 60,
+    defaultSound: true
 }
 
 const defaultValue = {
@@ -57,6 +63,8 @@ const defaultValue = {
     setResultModal: (value: boolean) => { },
     incrementIndex: () => { },
     incrementTimer: () => { },
+    updateDefaultTimer: (timer: number) => { },
+    updateDefaultSound: () => { }
 }
 
 const createAction = (type: string, payload: any) => ({ type, payload })
@@ -112,6 +120,16 @@ const TypingReducer = (state, action) => {
                 ...state,
                 resultModal: action.payload
             }
+        case TYPES.updateDefaultTimer:
+            return {
+                ...state,
+                defaultTimer: action.payload
+            }
+        case TYPES.updateSound:
+            return {
+                ...state,
+                defaultSound: !state.defaultSound
+            }
     }
 }
 
@@ -129,7 +147,8 @@ export const TypingProvider = ({ children }) => {
     const setResultModal = (value: boolean) => { dispatch(createAction(TYPES.resultModal, value)) }
     const incrementIndex = () => { dispatch(createAction(TYPES.indexIncrement, null)) }
     const incrementTimer = () => { dispatch(createAction(TYPES.timerIncrement, null)) }
-
+    const updateDefaultTimer = (timer: number) => { dispatch(createAction(TYPES.updateDefaultTimer, timer)) }
+    const updateDefaultSound = (timer: number) => { dispatch(createAction(TYPES.updateSound, timer)) }
     const value = {
         ...state,
         setCurrentParagraph,
@@ -141,7 +160,9 @@ export const TypingProvider = ({ children }) => {
         setCurrentTimer,
         setResultModal,
         incrementIndex,
-        incrementTimer
+        incrementTimer,
+        updateDefaultTimer,
+        updateDefaultSound
     }
     return (
         <TypingContext.Provider value={value}>
