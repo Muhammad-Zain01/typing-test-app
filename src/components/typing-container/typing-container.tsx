@@ -1,6 +1,6 @@
 'use client'
 import classes from './typing-container.module.css'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRef } from 'react'
 import useTypingContext from '@/hooks/useTypingContext'
 import { Tooltip } from 'antd'
@@ -8,11 +8,14 @@ type ComponentProps = {
     onKeyPress: (key: any) => void
 }
 const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
-    const { currentParagraph, currentIndex, currentStatus } = useTypingContext()
+    const { currentParagraph, currentTimer, currentIndex, currentStatus } = useTypingContext()
     const [isFocused, setIsFocused] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null)
     const Status = ['current-key', 'green', 'red']
 
+    useEffect(() => {
+        inputRef.current && inputRef.current.focus()
+    }, [])
     return (
         <>
             <div className={classes['typing-box']} onClick={() => inputRef.current && inputRef.current.focus()}  >
@@ -20,31 +23,28 @@ const TypingContainer: React.FC<ComponentProps> = ({ onKeyPress }) => {
                     {
                         currentParagraph.map((item, idx) => {
                             return (
-                                <>
+                                <React.Fragment key={idx}>
                                     {
                                         idx == 0 ? (
                                             <Tooltip
                                                 title={"Start Typing"}
-                                                key={idx}
                                                 className={classes.typingLabel}
                                                 color='#ffd000'
-                                                open={currentIndex == 0 ? true : false}
+                                                open={currentIndex == 0 && currentTimer == 0 ? true : false}
                                             >
                                                 <span
-                                                    key={idx}
                                                     className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
                                                     {item}
                                                 </span>
                                             </Tooltip>
                                         ) : (
                                             <span
-                                                key={idx}
                                                 className={`${isFocused && idx === currentIndex ? classes[Status[currentStatus]] : ""}  ${idx < currentIndex ? classes['green'] : ""}`}>
                                                 {item}
                                             </span>
                                         )
                                     }
-                                </>
+                                </React.Fragment>
 
                             )
                         })
