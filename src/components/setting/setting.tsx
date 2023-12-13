@@ -1,9 +1,14 @@
 'use client'
+import React from 'react';
 import { CheckOutlined, CloseOutlined, SettingOutlined } from '@ant-design/icons'
 import classes from './setting.module.css'
 import { Popover, Select, Switch } from 'antd';
 import useTypingContext from '@/hooks/useTypingContext';
-const Settings = () => {
+
+type ComponentProps = {
+    reset: () => void
+}
+const Settings: React.FC<ComponentProps> = ({ reset }) => {
     const { updateDefaultTimer, updateDefaultSound } = useTypingContext();
     const settigns = (
         <div style={{ width: '200px', padding: '10px 0px' }}>
@@ -16,7 +21,10 @@ const Settings = () => {
                         id='time'
                         defaultValue={60}
                         style={{ width: '100%' }}
-                        onChange={(e) => { updateDefaultTimer(e) }}
+                        onChange={(e) => {
+                            updateDefaultTimer(e);
+                            reset();
+                        }}
                         options={[
                             { value: 60, label: '1 Minute' },
                             { value: 120, label: '2 Minute' },
