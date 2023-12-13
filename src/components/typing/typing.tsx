@@ -8,7 +8,7 @@ import TypingResult from '../typing-result/typing-result';
 import { useEffect } from 'react';
 import useTypingContext from '@/hooks/useTypingContext';
 import { Howl } from 'howler';
-
+import Settings from '../setting/setting';
 const Typing = () => {
     var sound = new Howl({ src: ['/typing.mp3'] });
     const play = () => sound.play();
@@ -35,7 +35,6 @@ const Typing = () => {
     const calcIntervalId = useRef<NodeJS.Timeout | null>(null); // Parameter Calculation Interval Id
     const timeRef = useRef<number>(1); // Save Time Based on Seconds
 
-
     const changeText = () => {
         setCurrentParagraph(getText())
         setCurrentIndex(0)
@@ -53,8 +52,7 @@ const Typing = () => {
         setWpm(0)
         setCpm(0)
         setAccuracy(0)
-        intervalId.current = null
-        calcIntervalId.current = null
+        StopInterval()
     }
     const initTimer = () => {
         if (!intervalId.current) {
@@ -73,7 +71,6 @@ const Typing = () => {
                 const wpm = Math.round((typed / 5) * 60 / elaspedTime)
                 const cpm = Math.round((typed / elaspedTime) * 60 / 1)
                 const accuracy = Math.round((typed / keyStrokes.current) * 100)
-
                 setWpm(wpm)
                 setCpm(cpm)
                 setAccuracy(accuracy)
@@ -82,11 +79,19 @@ const Typing = () => {
 
     }
 
+    const StopInterval = () => {
+        intervalId.current && clearInterval(intervalId.current);
+        intervalId.current = null;
+        calcIntervalId.current && clearInterval(calcIntervalId.current);
+        calcIntervalId.current = null;
+
+    }
     const onKeyPress = (e: KeyboardEvent) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
             defaultSound && play()
             keyStrokes.current = keyStrokes.current + 1
+
             initTimer()
             calcParams()
 
@@ -107,11 +112,8 @@ const Typing = () => {
         setCurrentParagraph(getText());
     }, [])
     useEffect(() => {
-        if (currentTimer == defaultTimer) {
-            if (intervalId.current) {
-                clearInterval(intervalId.current);
-                intervalId.current = null;
-            }
+        if ((currentTimer) >= defaultTimer) {
+            StopInterval()
             setResultModal(true)
         }
     }, [currentTimer])
@@ -124,6 +126,7 @@ const Typing = () => {
                 <TypingContainer onKeyPress={onKeyPress} />
             </div>
             <TypingResult reset={reset} />
+            <Settings reset={reset} />
         </>
     )
 }
