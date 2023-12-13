@@ -21,8 +21,7 @@ A simple app contains the source code for a dynamic Typing Test application, met
 </div>
 
 
-[![Product Name Screen Shot][product-screenshot]](https://url-shortr.vercel.app/)
-[![Product Name Screen Shot][product-screenshot2]](https://url-shortr.vercel.app/)
+[![Preview][product-screenshot]](https://url-shortr.vercel.app/)
 
 
 ### Built With
