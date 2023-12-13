@@ -33,13 +33,6 @@ A simple app contains the source code for a dynamic Typing Test application, met
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
 
 ### Installation
 
@@ -52,19 +45,17 @@ This is an example of how to list things you need to use the software and how to
     cd typing-test-app
     npm install
    ```
-3. Creating .env
-   ```sh
-    VITE_SERVER_URL=<BACKEND_URL>
-    VITE_DOMAIN_URL=<FRONTEND_URL>
-   ```
-
-4. For Starting Server
+3. For Starting Server
    ```sh
    npm run dev
    ```
+  
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 
-<!-- CONTRIBUTING -->
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
