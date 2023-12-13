@@ -1,23 +1,20 @@
 <br />
 <div align="center">
 <img src="https://raw.githubusercontent.com/Muhammad-Zain01/typing-test-app/main/public/logo.png" style="width: 320px;" />
-<h3 align="center">URL Shortner (Client)</h3>
+<h3 align="center">Typing Test App</h3>
 <div>
-    <a href="https://github.com/muhammad-zain01/url-shortner/graphs/contributors"><img src="https://img.shields.io/github/contributors/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner/network/members"><img src="https://img.shields.io/github/forks/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner/stargazers"><img src="https://img.shields.io/github/stars/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner/issues"><img src="https://img.shields.io/github/issues/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/typing-test-app/graphs/contributors"><img src="https://img.shields.io/github/contributors/muhammad-zain01/typing-test-app.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/typing-test-app/network/members"><img src="https://img.shields.io/github/forks/muhammad-zain01/typing-test-app.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/typing-test-app/stargazers"><img src="https://img.shields.io/github/stars/muhammad-zain01/typing-test-app.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/typing-test-app/issues"><img src="https://img.shields.io/github/issues/muhammad-zain01/typing-test-app.svg?style=for-the-badge" /></a>
 </div>
 
   <p align="center" style="text-align: justify;">
-    A simple and efficient URL shortener that allows you to create shortened versions of long URLs, making them easier to share and manage. This URL shortener (Client) is built with React.js (Vite). It provides a clean and user-friendly interface for both shortening and expanding URLs.
+    
+A simple app contains the source code for a dynamic Typing Test application, meticulously crafted using Next.js (App Router) and React.js. The app offers an interactive platform where users can engage in typing tests to enhance their typing skills. The app displays crucial typing statistics including Words Per Minute (WPM), Characters Per Minute (CPM), and overall typing accuracy
+
   </p>
-    <a href="https://github.com/muhammad-zain01/url-shortner"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://url-shortr.vercel.app/">View Demo</a>
-    -
-    <a href="https://github.com/Muhammad-Zain01/url-shortner-backend/">Backend Repo</a>
+    <a href="https://typing-application.vercel.app/"><strong>View Demo »</strong></a>
     <br />
     <br />
     <br />
@@ -26,12 +23,6 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://url-shortr.vercel.app/)
 [![Product Name Screen Shot][product-screenshot2]](https://url-shortr.vercel.app/)
-
-### Credentials for Testing
-
-| Username | Password     |
-|----------|--------------|
-| test    | test123  |
 
 
 ### Built With
@@ -55,11 +46,11 @@ This is an example of how to list things you need to use the software and how to
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/muhammad-zain01/url-shortner.git
+   git clone https://github.com/muhammad-zain01/typing-test-app.git
    ```
 2. Install NPM packages
    ```sh
-    cd url-shortner
+    cd typing-test-app
     npm install
    ```
 3. Creating .env
@@ -89,20 +80,20 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 
-[contributors-shield]: https://img.shields.io/github/contributors/muhammad-zain01/url-shortner.svg?style=for-the-badge
-[contributors-url]: https://github.com/muhammad-zain01/url-shortner/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/muhammad-zain01/url-shortner.svg?style=for-the-badge
-[forks-url]: https://github.com/muhammad-zain01/url-shortner/network/members
-[stars-shield]: https://img.shields.io/github/stars/muhammad-zain01/url-shortner.svg?style=for-the-badge
-[stars-url]: https://github.com/muhammad-zain01/url-shortner/stargazers
-[issues-shield]: https://img.shields.io/github/issues/muhammad-zain01/url-shortner.svg?style=for-the-badge
-[issues-url]: https://github.com/muhammad-zain01/url-shortner/issues
-[license-shield]: https://img.shields.io/github/license/muhammad-zain01/url-shortner.svg?style=for-the-badge
-[license-url]: https://github.com/muhammad-zain01/url-shortner/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/muhammad-zain01/typing-test-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/muhammad-zain01/typing-test-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/muhammad-zain01/typing-test-app.svg?style=for-the-badge
+[forks-url]: https://github.com/muhammad-zain01/typing-test-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/muhammad-zain01/typing-test-app.svg?style=for-the-badge
+[stars-url]: https://github.com/muhammad-zain01/typing-test-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/muhammad-zain01/typing-test-app.svg?style=for-the-badge
+[issues-url]: https://github.com/muhammad-zain01/typing-test-app/issues
+[license-shield]: https://img.shields.io/github/license/muhammad-zain01/typing-test-app.svg?style=for-the-badge
+[license-url]: https://github.com/muhammad-zain01/typing-test-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: https://raw.githubusercontent.com/Muhammad-Zain01/url-shortner/main/preview.png
-[product-screenshot2]: https://raw.githubusercontent.com/Muhammad-Zain01/url-shortner/main/preview2.png
+[product-screenshot]: https://raw.githubusercontent.com/Muhammad-Zain01/typing-test-app/main/preview.png
+[product-screenshot2]: https://raw.githubusercontent.com/Muhammad-Zain01/typing-test-app/main/preview2.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 
 [Express.js]: https://img.shields.io/badge/express.js-f1dd1c?style=for-the-badge
