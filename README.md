@@ -27,7 +27,7 @@ A simple app contains the source code for a dynamic Typing Test application, met
 
 ### Built With
 
-* [![React][React.js]][React-url]
+* [![Next][Next.js]][Next-url]
 
 ## Getting Started
 
