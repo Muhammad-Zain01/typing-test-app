@@ -10,8 +10,10 @@ import useTypingContext from '@/hooks/useTypingContext';
 import { Howl } from 'howler';
 import Settings from '../setting/setting';
 const Typing = () => {
-    var sound = new Howl({ src: ['/typing.mp3'] });
-    const play = () => sound.play();
+    var TypingSound = new Howl({ src: ['/typing.mp3'] });
+    var WrongTyping = new Howl({ src: ['/wrong-typing.mp3'] });
+    const right = () => TypingSound.play();
+    const wrong = () => WrongTyping.play();
     const {
         setCurrentParagraph,
         setCurrentIndex,
@@ -89,17 +91,18 @@ const Typing = () => {
     const onKeyPress = (e: KeyboardEvent) => {
         const { key } = e;
         if ((key.length === 1 || key === "Backspace")) {
-            defaultSound && play()
             keyStrokes.current = keyStrokes.current + 1
 
             initTimer()
             calcParams()
 
             if (key === currentParagraph[currentIndex]) {
+                defaultSound && right()
                 incrementIndex()
                 setCurrentStatus(0)
                 typeStrokes.current = typeStrokes.current + 1
             } else {
+                defaultSound && wrong()
                 setCurrentStatus(2)
             }
 
