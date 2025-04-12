@@ -1,6 +1,7 @@
 'use client'
 import React, { Reducer } from "react"
-import { createContext, useReducer } from "react"
+import { createContext, useReducer, useEffect } from "react"
+import { loadSettings } from "@/utils/localStorage"
 
 const TYPES = {
     paragraph: "SET_PARAGRAPH",
@@ -18,34 +19,36 @@ const TYPES = {
 }
 
 type ContextState = {
-    currentParagraph: string[] | [];
+    currentParagraph: string[];
     currentIndex: number;
     wpm: number;
     cpm: number;
     accuracy: number;
     currentStatus: number;
     currentTimer: number;
-    resultModal: false;
+    resultModal: boolean;
     defaultTimer: number;
     defaultSound: boolean;
-    setCurrentParagraph?: (value: string[] | []) => void,
-    setCurrentIndex?: (value: number) => void,
-    setWpm?: (value: number) => void,
-    setCpm?: (value: number) => void,
-    setAccuracy?: (value: number) => void,
-    incrementIndex?: () => void,
-    setCurrentStatus?: (value: number) => void,
-    setCurrentTimer?: (value: number) => void,
-    updateDefaultTimer?: (value: number) => void,
-    updateDefaultSound?: () => void,
-    setResultModal?: (value: boolean) => void,
-    incrementTimer?: () => void
+    setCurrentParagraph?: (value: string[]) => void;
+    setCurrentIndex?: (value: number) => void;
+    setWpm?: (value: number) => void;
+    setCpm?: (value: number) => void;
+    setAccuracy?: (value: number) => void;
+    incrementIndex?: () => void;
+    setCurrentStatus?: (value: number) => void;
+    setCurrentTimer?: (value: number) => void;
+    updateDefaultTimer?: (value: number) => void;
+    updateDefaultSound?: () => void;
+    setResultModal?: (value: boolean) => void;
+    incrementTimer?: () => void;
 }
 
 type Action = {
-    type: any;
+    type: string;
     payload: any;
 }
+
+// Initialize with default values
 const initialState: ContextState = {
     currentParagraph: [],
     currentIndex: 0,
@@ -59,9 +62,9 @@ const initialState: ContextState = {
     defaultSound: true
 }
 
-const defaultValue = {
+const defaultValue: ContextState = {
     ...initialState,
-    setCurrentParagraph: (value: string[] | []) => { },
+    setCurrentParagraph: (value: string[]) => { },
     setCurrentIndex: (value: number) => { },
     setWpm: (value: number) => { },
     setCpm: (value: number) => { },
@@ -70,12 +73,14 @@ const defaultValue = {
     setCurrentTimer: (value: number) => { },
     setResultModal: (value: boolean) => { },
     incrementIndex: () => { },
+    incrementTimer: () => { },
     updateDefaultTimer: (timer: number) => { },
     updateDefaultSound: () => { }
 }
 
-const createAction = (type: string, payload: any) => ({ type, payload })
-const TypingReducer: Reducer<any, Action> = (state, action) => {
+const createAction = (type: string, payload: any): Action => ({ type, payload })
+
+const TypingReducer: Reducer<ContextState, Action> = (state, action) => {
     switch (action.type) {  
         case TYPES.paragraph:
             return {
@@ -137,18 +142,37 @@ const TypingReducer: Reducer<any, Action> = (state, action) => {
                 ...state,
                 defaultSound: !state.defaultSound
             }
+        default:
+            return state;
     }
 }
 
-export const TypingContext = createContext(defaultValue);
+export const TypingContext = createContext<ContextState>(defaultValue);
 
 type Provider = {
     children: React.ReactNode
 }
-export const TypingProvider: React.FC<Provider> = ({ children }) => {
-    const [state, dispatch] = useReducer(TypingReducer, defaultValue);
 
-    const setCurrentParagraph = (value: string[] | []) => { dispatch(createAction(TYPES.paragraph, value)) }
+export const TypingProvider: React.FC<Provider> = ({ children }) => {
+    const [state, dispatch] = useReducer(TypingReducer, initialState);
+
+    // Load saved settings on initial render
+    useEffect(() => {
+        const savedSettings = loadSettings();
+        if (savedSettings) {
+            if (savedSettings.timerDuration) {
+                dispatch(createAction(TYPES.updateDefaultTimer, savedSettings.timerDuration));
+            }
+            if (typeof savedSettings.sound !== 'undefined') {
+                // Only update if the value is different from the current state
+                if (savedSettings.sound !== state.defaultSound) {
+                    dispatch(createAction(TYPES.updateSound, null));
+                }
+            }
+        }
+    }, [state.defaultSound]);
+
+    const setCurrentParagraph = (value: string[]) => { dispatch(createAction(TYPES.paragraph, value)) }
     const setCurrentIndex = (value: number) => { dispatch(createAction(TYPES.index, value)) }
     const setWpm = (value: number) => { dispatch(createAction(TYPES.wpm, value)) }
     const setCpm = (value: number) => { dispatch(createAction(TYPES.cpm, value)) }
@@ -160,6 +184,7 @@ export const TypingProvider: React.FC<Provider> = ({ children }) => {
     const incrementTimer = () => { dispatch(createAction(TYPES.timerIncrement, null)) }
     const updateDefaultTimer = (timer: number) => { dispatch(createAction(TYPES.updateDefaultTimer, timer)) }
     const updateDefaultSound = () => { dispatch(createAction(TYPES.updateSound, null)) }
+    
     const value = {
         ...state,
         setCurrentParagraph,
@@ -175,6 +200,7 @@ export const TypingProvider: React.FC<Provider> = ({ children }) => {
         updateDefaultTimer,
         updateDefaultSound
     }
+    
     return (
         <TypingContext.Provider value={value}>
             {children}

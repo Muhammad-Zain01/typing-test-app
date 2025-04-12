@@ -1,48 +1,104 @@
 .typing-box {
-    background-color: white;
+    background-color: var(--card-background);
     width: 100%;
-    padding: 1.5rem 0;
-    border-radius: .8rem;
-    font-family: 'Neuton', serif !important;
+    
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    font-family: var(--typing-font-family);
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0px 4px 24px rgba(0, 0, 0, .12), -2px 6px 24px rgba(0, 0, 0, .12);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 209, 0, 0.1);
+    /* min-height: 220px; */
+    transition: all 0.3s ease;
+}
+
+.typing-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
 }
 
 .typing-box input {
-    display: hidden;
+    display: none;
+}
+
+.typing-box-paused {
+    opacity: 0.7;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.typing-box-completed {
+    opacity: 0.8;
+    pointer-events: none;
+    border: 2px solid rgba(34, 197, 94, 0.5);
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+.typing-box-completed .div {
+    color: #22c55e;
 }
 
 .div {
-    width: 100%;
-    font-size: 35px;
+    width: 98%;
+    max-width: 1800px;
+    margin: 0 auto;
     padding: 0px 20px;
     height: 100%;
+    font-size: var(--typing-font-size);
+    line-height: 1.6;
+    font-weight: 300;
+    font-family: var(--font-family);
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
 }
 
 .div span {
-    padding: 0px 2px;
+    padding: 0px 3px;
+    border-radius: 3px;
+    transition: all 0.1s ease;
+    margin: 0 1px;
 }
 
 .current-key {
-    text-decoration: underline;
-    color: rgb(137, 137, 137);
-    animation: blink 1s infinite;
+    background-color: var(--primary-color);
+    color: black;
+    border-radius: 4px;
+    padding: 0 2px;
+    font-weight: 500;
+    position: relative;
+    animation: blink 1.2s infinite;
 }
 
 .green {
-    color: green;
-    background-color: rgb(129 220 129 / 33%);
+    color: #22c55e;
+    background-color: rgba(34, 197, 94, 0.1);
 }
 
 .red {
+    color: #ef4444;
+    background-color: rgba(239, 68, 68, 0.1);
     text-decoration: underline;
-    color: red;
 }
 
 .input {
+    position: absolute;
+    top: -100px;
+    left: -100px;
+    width: 1px;
+    height: 1px;
     opacity: 0;
+    cursor: text;
 }
 
 @keyframes blink {
@@ -51,10 +107,22 @@
     }
 
     50% {
-        opacity: 0.1;
+        opacity: 0.3;
     }
 
     100% {
         opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .typing-box {
+        padding: 1.5rem 1rem;
+    }
+    
+    .div {
+        font-size: calc(var(--typing-font-size) - 6px);
+        padding: 0px 10px;
+        width: 98%;
     }
 }

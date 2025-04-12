@@ -1,12 +1,124 @@
 .parameter-container {
     display: flex;
     justify-content: center;
-    padding: 2rem 0rem;
+    align-items: center;
+    padding: 2.5rem 0rem 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 98%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.parameter-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .typing-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 0rem;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 1.5rem;
+}
+
+.typing-container {
+    width: 95%;
+    
+    position: relative;
+}
+
+.control-buttons {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+}
+
+.control-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    background-color: var(--card-background);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.control-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.control-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.control-icon {
+    font-size: 28px;
+    color: var(--primary-color);
+}
+
+.pause-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    border-radius: var(--border-radius);
+    backdrop-filter: blur(4px);
+}
+
+.pause-content {
+    text-align: center;
+    color: white;
+    padding: 20px;
+    border-radius: var(--border-radius);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.pause-icon {
+    font-size: 48px;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.pause-content h3 {
+    font-size: 24px;
+    margin: 10px 0;
+}
+
+.pause-content p {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .parameter-container {
+        padding: 1.5rem 0rem 1rem;
+        width: 98%;
+    }
+    
+    .typing-container {
+        padding: 1rem;
+        width: 98%;
+    }
 }

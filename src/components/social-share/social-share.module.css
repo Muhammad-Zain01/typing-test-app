@@ -1,0 +1,57 @@
+.share-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.share-title {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.share-button {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 209, 0, 0.3);
+}
+
+.share-button:hover {
+    transform: translateY(-3px);
+    background-color: var(--secondary-color);
+    box-shadow: 0 6px 15px rgba(255, 209, 0, 0.4);
+}
+
+.share-button svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 768px) {
+    .share-container {
+        gap: 0.8rem;
+    }
+    
+    .share-button {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .share-button svg {
+        width: 18px;
+        height: 18px;
+    }
+}

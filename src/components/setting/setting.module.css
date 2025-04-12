@@ -1,5 +1,646 @@
 .setting-container {
     position: absolute;
-    top: 50px;
-    right: 50px;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+}
+
+.setting-button {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 209, 0, 0.3);
+}
+
+.setting-button:hover {
+    transform: translateY(-3px);
+    background-color: var(--secondary-color);
+    box-shadow: 0 6px 15px rgba(255, 209, 0, 0.4);
+}
+
+.modalTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+    border-left: 4px solid var(--primary-color);
+    padding-left: 12px;
+}
+
+.settingsTabs {
+    margin-top: 20px;
+}
+
+.settingsTabs :global(.ant-tabs-nav::before) {
+    border-bottom-color: var(--yellow-light) !important;
+}
+
+.settingsTabs :global(.ant-tabs-tab) {
+    color: var(--text-secondary) !important;
+    transition: color 0.3s ease;
+    padding: 12px 16px;
+    margin: 0 4px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.settingsTabs :global(.ant-tabs-tab:hover) {
+    color: var(--primary-color) !important;
+    background-color: var(--yellow-light);
+}
+
+.settingsTabs :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+.settingsTabs :global(.ant-tabs-tab-active) {
+    background-color: var(--yellow-light);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.settingsTabs :global(.ant-tabs-ink-bar) {
+    background-color: var(--primary-color) !important;
+    height: 3px !important;
+    border-radius: 3px 3px 0 0;
+}
+
+.settingsTabs :global(.ant-tabs-content-holder) {
+    border-top: 1px solid var(--yellow-light);
+    padding-top: 20px;
+}
+
+/* Dark mode specific styles */
+[data-theme='dark'] .settingsTabs :global(.ant-tabs-tab) {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme='dark'] .settingsTabs :global(.ant-tabs-tab:hover) {
+    color: var(--primary-color) !important;
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+[data-theme='dark'] .settingsTabs :global(.ant-tabs-tab-active) {
+    background-color: rgba(255, 193, 7, 0.15);
+}
+
+[data-theme='dark'] .settingsTabs :global(.ant-tabs-tab-active .ant-tabs-tab-btn) {
+    color: var(--primary-color) !important;
+}
+
+[data-theme='dark'] .settingsTabs :global(.ant-tabs-ink-bar) {
+    background-color: var(--primary-color) !important;
+}
+
+.tabLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.settingSection {
+    padding: 20px 10px;
+}
+
+.settingSection h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.settingSection p {
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+}
+
+.divider {
+    margin: 24px 0;
+    border-color: var(--yellow-light);
+    opacity: 0.5;
+}
+
+.toggleOption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 10px 16px;
+    background-color: var(--yellow-light);
+    border-radius: var(--border-radius);
+    transition: background-color 0.3s ease;
+}
+
+.toggleOption span {
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.fontSelector {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.fontSelector :global(.ant-radio-button-wrapper) {
+    flex: 1;
+    text-align: center;
+    border-color: var(--primary-color) !important;
+    color: var(--text-primary) !important;
+    background-color: var(--card-background) !important;
+    transition: all 0.3s ease;
+}
+
+.fontSelector :global(.ant-radio-button-wrapper:hover) {
+    color: var(--primary-color) !important;
+}
+
+.fontSelector :global(.ant-radio-button-wrapper-checked) {
+    background-color: var(--primary-color) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+.fontSelector :global(.ant-radio-button-wrapper:not(:first-child)::before) {
+    background-color: var(--primary-color) !important;
+}
+
+.robotoMono {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.jetbrainsMono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.inter {
+    font-family: 'Inter', sans-serif;
+}
+
+.fontPreview {
+    padding: 16px;
+    border-radius: var(--border-radius);
+    background-color: var(--yellow-light);
+    margin-top: 16px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.fontPreview p:first-child {
+    margin-bottom: 8px;
+}
+
+.themeSelector {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.themeOption {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 16px;
+    border-radius: var(--border-radius);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.themeOption:hover {
+    background-color: var(--yellow-light);
+}
+
+.activeTheme {
+    border-color: var(--primary-color);
+    background-color: var(--yellow-light);
+}
+
+.themePreview {
+    width: 100%;
+    height: 120px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.themePreview[data-theme="light"] {
+    background-color: #FFFDF5;
+}
+
+.themePreview[data-theme="light"] .previewHeader {
+    background-color: #FFD100;
+}
+
+.themePreview[data-theme="light"] .previewLine {
+    background-color: #333333;
+}
+
+.themePreview[data-theme="dark"] {
+    background-color: #121212;
+}
+
+.themePreview[data-theme="dark"] .previewHeader {
+    background-color: #FFC107;
+}
+
+.themePreview[data-theme="dark"] .previewLine {
+    background-color: #F5F5F5;
+}
+
+.previewHeader {
+    height: 20px;
+    width: 100%;
+}
+
+.previewContent {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.previewLine {
+    height: 8px;
+    border-radius: 4px;
+    opacity: 0.7;
+}
+
+.previewLine:first-child {
+    width: 80%;
+}
+
+.previewLine:last-child {
+    width: 60%;
+}
+
+.settingInfo {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px;
+    background-color: var(--yellow-light);
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+}
+
+.infoIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--yellow-light);
+}
+
+/* Dark mode specific styles for settings modal */
+[data-theme='dark'] .settingsModal :global(.ant-modal-content) {
+    background-color: #1A1A1A;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+[data-theme='dark'] .settingsModal :global(.ant-modal-header) {
+    border-bottom: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+[data-theme='dark'] .toggleOption {
+    background-color: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+}
+
+[data-theme='dark'] .toggleOption span {
+    color: var(--text-primary);
+}
+
+[data-theme='dark'] .fontPreview {
+    background-color: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+}
+
+[data-theme='dark'] .settingInfo {
+    background-color: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.15);
+}
+
+[data-theme='dark'] .infoIcon {
+    background-color: var(--primary-color);
+    color: #000;
+}
+
+[data-theme='dark'] .modalTitle {
+    color: var(--primary-color);
+}
+
+[data-theme='dark'] .settingSection h3 {
+    color: var(--primary-color);
+}
+
+[data-theme='dark'] .fontSelector :global(.ant-radio-button-wrapper) {
+    background-color: #1A1A1A !important;
+    border-color: rgba(255, 193, 7, 0.3) !important;
+}
+
+[data-theme='dark'] .fontSelector :global(.ant-radio-button-wrapper-checked) {
+    background-color: var(--primary-color) !important;
+    color: #000 !important;
+}
+
+/* Improved toggle switch styling for dark mode */
+[data-theme='dark'] .toggleOption :global(.ant-switch) {
+    background-color: rgba(255, 193, 7, 0.3) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-checked) {
+    background-color: var(--primary-color) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-handle) {
+    background-color: #F5F5F5 !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-handle::before) {
+    background-color: #F5F5F5 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-checked .ant-switch-handle) {
+    background-color: #121212 !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-checked .ant-switch-handle::before) {
+    background-color: #121212 !important;
+}
+
+/* Additional toggle styling for both modes */
+.toggleOption :global(.ant-switch) {
+    min-width: 44px !important;
+    height: 22px !important;
+    border-radius: 11px !important;
+}
+
+.toggleOption :global(.ant-switch-handle) {
+    height: 18px !important;
+    width: 18px !important;
+    top: 2px !important;
+    border-radius: 50% !important;
+}
+
+.toggleOption :global(.ant-switch-handle::before) {
+    border-radius: 50% !important;
+}
+
+.toggleOption :global(.ant-switch-inner) {
+    margin: 0 7px 0 24px !important;
+}
+
+.toggleOption :global(.ant-switch-checked .ant-switch-inner) {
+    margin: 0 24px 0 7px !important;
+}
+
+/* Toggle Switch Styling */
+.toggleSwitch {
+    margin: 0 !important;
+}
+
+.toggleSwitch:global(.ant-switch) {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+.toggleSwitch:global(.ant-switch-checked) {
+    background-color: var(--primary-color) !important;
+}
+
+.toggleSwitch:global(.ant-switch-handle) {
+    background-color: white !important;
+}
+
+.toggleSwitch:global(.ant-switch-checked .ant-switch-handle) {
+    background-color: white !important;
+}
+
+/* Dark mode toggle switch */
+[data-theme='dark'] .toggleSwitch:global(.ant-switch) {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+[data-theme='dark'] .toggleSwitch:global(.ant-switch-checked) {
+    background-color: var(--primary-color) !important;
+}
+
+/* Improve the slider in dark mode */
+[data-theme='dark'] .settingSection :global(.ant-slider-rail) {
+    background-color: rgba(255, 193, 7, 0.1);
+}
+
+[data-theme='dark'] .settingSection :global(.ant-slider-handle) {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.3);
+}
+
+[data-theme='dark'] .settingSection :global(.ant-slider-dot) {
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+[data-theme='dark'] .settingSection :global(.ant-slider-mark-text) {
+    color: var(--text-secondary);
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-selector) {
+    background-color: #1A1A1A !important;
+    border-color: rgba(255, 193, 7, 0.3) !important;
+}
+
+[data-theme='dark'] .modalFooter {
+    border-top: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+/* Dark mode specific styles for select and toggle components */
+[data-theme='dark'] .settingSection :global(.ant-select-selection-item) {
+    color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-arrow) {
+    color: var(--primary-color) !important;
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-dropdown) {
+    background-color: #1A1A1A !important;
+    border: 1px solid rgba(255, 193, 7, 0.2) !important;
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-item) {
+    color: var(--text-primary) !important;
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-item-option-active) {
+    background-color: rgba(255, 193, 7, 0.1) !important;
+}
+
+[data-theme='dark'] .settingSection :global(.ant-select-item-option-selected) {
+    background-color: rgba(255, 193, 7, 0.2) !important;
+    color: var(--primary-color) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch) {
+    background-color: rgba(255, 193, 7, 0.3) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-checked) {
+    background-color: var(--primary-color) !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-handle) {
+    background-color: #F5F5F5 !important;
+}
+
+[data-theme='dark'] .toggleOption :global(.ant-switch-checked .ant-switch-handle) {
+    background-color: #000 !important;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .settingsModal {
+        width: 90% !important;
+    }
+    
+    .themeSelector {
+        flex-direction: column;
+    }
+    
+    .fontSelector {
+        flex-direction: column;
+    }
+}
+
+.settingsModal :global(.ant-modal-content) {
+    padding: 24px;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    border: 1px solid rgba(255, 209, 0, 0.15);
+}
+
+.settingsModal :global(.ant-modal-header) {
+    padding: 0 0 16px 0;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 209, 0, 0.15);
+}
+
+.settingsModal :global(.ant-modal-close) {
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.settingsModal :global(.ant-modal-close:hover) {
+    color: var(--primary-color);
+}
+
+/* Slider customization */
+.settingSection :global(.ant-slider-track) {
+    background-color: var(--primary-color);
+}
+
+.settingSection :global(.ant-slider-rail) {
+    background-color: var(--yellow-light);
+}
+
+.settingSection :global(.ant-slider-handle) {
+    border-color: var(--primary-color);
+}
+
+.settingSection :global(.ant-slider-handle:focus),
+.settingSection :global(.ant-slider-handle-dragging) {
+    box-shadow: 0 0 0 5px rgba(255, 209, 0, 0.2);
+    border-color: var(--primary-color) !important;
+}
+
+.settingSection :global(.ant-slider-handle:hover) {
+    border-color: var(--primary-color) !important;
+}
+
+.settingSection :global(.ant-slider:hover .ant-slider-track) {
+    background-color: var(--secondary-color);
+}
+
+.settingSection :global(.ant-slider:hover .ant-slider-rail) {
+    background-color: var(--yellow-light);
+}
+
+.settingSection :global(.ant-slider:hover .ant-slider-handle) {
+    border-color: var(--secondary-color) !important;
+}
+
+.settingSection :global(.ant-slider-dot) {
+    border-color: var(--yellow-light);
+}
+
+.settingSection :global(.ant-slider-dot-active) {
+    border-color: var(--primary-color);
+}
+
+.settingSection :global(.ant-slider-mark-text) {
+    color: var(--text-secondary);
+}
+
+/* Select customization */
+.settingSection :global(.ant-select-selector) {
+    border-color: rgba(255, 209, 0, 0.3) !important;
+    border-radius: var(--border-radius) !important;
+    transition: all 0.3s ease !important;
+}
+
+.settingSection :global(.ant-select-selector:hover) {
+    border-color: var(--primary-color) !important;
+}
+
+.settingSection :global(.ant-select-focused .ant-select-selector) {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 2px rgba(255, 209, 0, 0.2) !important;
+}
+
+.autoSaveIndicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--success-color);
+    background-color: rgba(255, 193, 7, 0.1);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+[data-theme='dark'] .autoSaveIndicator {
+    background-color: rgba(255, 193, 7, 0.08);
+    border: 1px solid rgba(255, 193, 7, 0.15);
 }

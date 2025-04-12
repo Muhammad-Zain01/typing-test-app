@@ -1,46 +1,242 @@
 .result {
-    padding: 20px
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 209, 0, 0.1);
+}
+
+.result::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
 }
 
 .heading {
-    font-size: 30px;
-    font-weight: bold;
+    font-size: 28px;
+    font-weight: 600;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .image {
     display: flex;
     justify-content: center;
-    margin-bottom: 20px
+    margin-bottom: 1.5rem;
+}
+
+.imageWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    box-shadow: 0 4px 15px rgba(255, 209, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.darkModeImage {
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(255, 209, 0, 0.3);
+    filter: drop-shadow(0 0 10px rgba(255, 209, 0, 0.2));
+}
+
+.darkModeImage img {
+    filter: contrast(1.1) brightness(1.05);
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--yellow-light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    min-width: 100px;
+    box-shadow: 0 4px 10px rgba(255, 209, 0, 0.1);
+    border: 1px solid rgba(255, 209, 0, 0.2);
+}
+
+.statValue {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.statLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-top: 0.3rem;
 }
 
 .result-text {
-    font-size: 22px;
-    font-weight: 300;
-    text-align: justify;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
 }
 
 .result-text mark {
-    background-color: #ffd000;
-    padding: 5px;
+    background-color: rgba(255, 209, 0, 0.2);
+    padding: 3px 6px;
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-weight: 500;
 }
 
 .button {
-    margin-top: 30px;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
 }
 
 .button button {
-    height: 50px;
-    font-size: 20px;
-    padding: 0px 20px;
-    background-color: #ffd000;
-    color: black;
+    height: auto;
+    font-size: 1rem;
+    padding: 0.8rem 2rem;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-primary);
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 209, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.darkModeButton {
+    background: #ff4d4f !important;
+    box-shadow: 0 4px 15px rgba(255, 77, 79, 0.3) !important;
+}
+
+.darkModeButton:hover {
+    box-shadow: 0 6px 20px rgba(255, 77, 79, 0.4) !important;
 }
 
 .button button:hover {
-    background-color: #eabf00 !important;
-    color: rgb(0, 0, 0) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 209, 0, 0.4) !important;
+}
+
+.button button:active {
+    transform: translateY(0);
+}
+
+.social-share {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.darkModeSocial :global(.share-button) {
+    background-color: #222;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.darkModeSocial :global(.share-button:hover) {
+    background-color: #333;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+.footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 209, 0, 0.1);
+}
+
+.confetti {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: 
+        radial-gradient(circle at 20% 35%, var(--yellow-light) 4px, transparent 4px),
+        radial-gradient(circle at 75% 25%, var(--yellow-light) 5px, transparent 5px),
+        radial-gradient(circle at 85% 55%, var(--yellow-light) 3px, transparent 3px),
+        radial-gradient(circle at 35% 65%, var(--yellow-light) 6px, transparent 6px),
+        radial-gradient(circle at 45% 85%, var(--yellow-light) 4px, transparent 4px),
+        radial-gradient(circle at 25% 45%, var(--primary-color) 3px, transparent 3px),
+        radial-gradient(circle at 65% 35%, var(--primary-color) 4px, transparent 4px),
+        radial-gradient(circle at 80% 80%, var(--primary-color) 3px, transparent 3px),
+        radial-gradient(circle at 15% 70%, var(--primary-color) 5px, transparent 5px),
+        radial-gradient(circle at 55% 10%, var(--primary-color) 2px, transparent 2px),
+        radial-gradient(circle at 30% 15%, var(--secondary-color) 4px, transparent 4px),
+        radial-gradient(circle at 60% 55%, var(--secondary-color) 3px, transparent 3px),
+        radial-gradient(circle at 40% 75%, var(--secondary-color) 5px, transparent 3px),
+        radial-gradient(circle at 75% 65%, var(--secondary-color) 2px, transparent 2px),
+        radial-gradient(circle at 90% 35%, var(--secondary-color) 4px, transparent 4px);
+}
+
+@media (max-width: 768px) {
+    .result {
+        padding: 1.5rem;
+    }
+    
+    .heading {
+        font-size: 24px;
+        margin-bottom: 1rem;
+    }
+    
+    .stats {
+        gap: 1rem;
+    }
+    
+    .statItem {
+        min-width: 80px;
+        padding: 0.8rem;
+    }
+    
+    .statValue {
+        font-size: 22px;
+    }
+    
+    .statLabel {
+        font-size: 12px;
+    }
+    
+    .result-text {
+        font-size: 16px;
+    }
+    
+    .button {
+        margin-top: 1rem;
+    }
+    
+    .button button {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+    }
 }
